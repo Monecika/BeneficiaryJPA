@@ -69,6 +69,20 @@ public class Beneficiaries {
         this.addressBen = addressBen;
         this.emailBen = emailBen;
     }
+
+    public Beneficiaries(String codeBen, String nameBen, String surnameBen, String phoneBen, String idnp,
+                         String addressBen, String emailBen, int localityID, String environment, int cardID) {
+        this.codeBen = codeBen;
+        this.nameBen = nameBen;
+        this.surnameBen = surnameBen;
+        this.phoneBen = phoneBen;
+        this.IDNP = idnp;
+        this.addressBen = addressBen;
+        this.emailBen = emailBen;
+        this.localityID = localityID;
+        this.environment = environment;
+        this.cardID = cardID;
+    }
 }
 
 

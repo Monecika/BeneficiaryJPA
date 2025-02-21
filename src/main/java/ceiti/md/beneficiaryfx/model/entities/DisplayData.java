@@ -16,4 +16,17 @@ public class DisplayData extends Beneficiaries {
         this.localityName = localityName;
         this.cardNumber = cardNumber;
     }
+
+    public DisplayData(int id, String benID, String name, String surname, String phone, String idnp, String address, String email,
+                       int localityID, String localityName, String environment, int cardID, String cardNr) {
+        super(id, benID, name, surname, phone, idnp, address, email, localityID, environment, cardID);
+        this.localityName = localityName;
+        this.cardNumber = cardNr;
+    }
+
+    public DisplayData(String benID, String name, String surname, String phone, String idnp, String address, String email, int localityID, String localityName, String environment, int cardID, String cardNr) {
+        super(benID, name, surname, phone, idnp, address, email, localityID, environment, cardID);
+        this.localityName = localityName;
+        this.cardNumber = cardNr;
+    }
 }

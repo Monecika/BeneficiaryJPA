@@ -1,17 +1,14 @@
 package ceiti.md.beneficiaryfx.model;
 
-import ceiti.md.beneficiaryfx.model.entities.Cards;
-import ceiti.md.beneficiaryfx.model.entities.DisplayData;
-import ceiti.md.beneficiaryfx.model.entities.Environments;
-import ceiti.md.beneficiaryfx.model.entities.Localities;
+import ceiti.md.beneficiaryfx.model.entities.*;
 import ceiti.md.beneficiaryfx.model.services.*;
 import javafx.collections.ObservableList;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.sql.SQLException;
 
 @Component
 public class MainModel {
+
     private final DisplayDataService displayDataService;
     private final ScepticDataService scepticDataService;
     private final BeneficiariesService beneficiariesService;
@@ -19,41 +16,49 @@ public class MainModel {
     private final LocalitiesService localitiesService;
     private final CardsService cardsService;
 
-    public MainModel() {
-        displayDataService = new DisplayDataService();
-        scepticDataService = new ScepticDataService();
-        beneficiariesService = new BeneficiariesService();
-        environmentsService = new EnvironmentsService();
-        localitiesService = new LocalitiesService();
-        cardsService = new CardsService();
+    @Autowired
+    public MainModel(DisplayDataService displayDataService, ScepticDataService scepticDataService,
+                     BeneficiariesService beneficiariesService, EnvironmentsService environmentsService,
+                     LocalitiesService localitiesService, CardsService cardsService) {
+        this.displayDataService = displayDataService;
+        this.scepticDataService = scepticDataService;
+        this.beneficiariesService = beneficiariesService;
+        this.environmentsService = environmentsService;
+        this.localitiesService = localitiesService;
+        this.cardsService = cardsService;
     }
 
     public ObservableList<DisplayData> getAllDisplayData() {
-        return null;
+        return displayDataService.findAll();
     }
 
-    public ObservableList<DisplayData> getScepticDisplayData() {
-        return null;
+    public ObservableList<ScepticData> getScepticDisplayData() {
+        return scepticDataService.findAll();
     }
 
-    public void deleteBen(String number) {
+    public void deleteBen(String codeBen) {
+        Beneficiaries beneficiaries;
+        beneficiaries = beneficiariesService.getBeneficiary(codeBen);
+        beneficiariesService.deleteById(beneficiaries);
     }
 
     public void updateDisplayData(DisplayData displayData) {
+        displayDataService.update(displayData);
     }
 
-    public void addNewUser(DisplayData displayData) throws SQLException {
+    public void addNewUser(DisplayData displayData) {
+        displayDataService.save(displayData);
     }
 
     public ObservableList<Environments> getEnvironment() {
-        return null;
+        return environmentsService.findAll();
     }
 
     public ObservableList<Localities> getLocality() {
-        return null;
+        return localitiesService.findAll();
     }
 
     public ObservableList<Cards> getCard() {
-        return null;
+        return cardsService.findAll();
     }
 }

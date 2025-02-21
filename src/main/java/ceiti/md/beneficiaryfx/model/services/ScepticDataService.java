@@ -1,17 +1,42 @@
 package ceiti.md.beneficiaryfx.model.services;
 
+import ceiti.md.beneficiaryfx.model.entities.Beneficiaries;
 import ceiti.md.beneficiaryfx.model.entities.ScepticData;
 import ceiti.md.beneficiaryfx.model.repositories.MyCrudRepository;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ScepticDataService implements MyCrudRepository<ScepticData> {
+    private final BeneficiariesService beneficiariesService;
+
+    @Autowired
+    public ScepticDataService(BeneficiariesService beneficiariesService) {
+        this.beneficiariesService = beneficiariesService;
+    }
+
     @Override
-    public List<ScepticData> findAll() {
-        return List.of();
+    public ObservableList<ScepticData> findAll() {
+
+        ObservableList<Beneficiaries> beneficiariesList = beneficiariesService.findAll();
+        ObservableList<ScepticData> scepticDataList = FXCollections.observableArrayList();
+
+        ScepticData scepticData;
+        Beneficiaries beneficiaries;
+
+        while (!beneficiariesList.isEmpty()) {
+            beneficiaries = beneficiariesList.getFirst();
+            scepticData = new ScepticData(beneficiaries.getID(), beneficiaries.getCodeBen(),
+                    beneficiaries.getNameBen(), beneficiaries.getSurnameBen(), beneficiaries.getPhoneBen(),
+                    beneficiaries.getAddressBen(), beneficiaries.getEmailBen());
+            scepticDataList.add(scepticData);
+            beneficiariesList.removeFirst();
+        }
+        return scepticDataList;
     }
 
     @Override
@@ -20,8 +45,7 @@ public class ScepticDataService implements MyCrudRepository<ScepticData> {
     }
 
     @Override
-    public ScepticData save(ScepticData entity) {
-        return null;
+    public void save(ScepticData entity) {
     }
 
     @Override
@@ -30,7 +54,7 @@ public class ScepticDataService implements MyCrudRepository<ScepticData> {
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(ScepticData entity) {
 
     }
 }

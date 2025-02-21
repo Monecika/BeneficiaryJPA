@@ -9,18 +9,16 @@
 <VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="ceiti.md.beneficiaryfx.controller.MainController">
 
-    <HBox alignment="CENTER" VBox.vgrow="NEVER">
+    <HBox alignment="CENTER">
         <children>
             <Label text="Logo" styleClass="logo-label">
                 <HBox.margin>
                     <Insets left="20"/>
                 </HBox.margin>
             </Label>
-
             <Region HBox.hgrow="ALWAYS"/>
-
             <MenuBar fx:id="menuBar" prefWidth="260" styleClass="menu-bar"
-                     style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                     style="-fx-background-color: transparent;">
                 <menus>
                     <Menu text="Home" styleClass="menu"/>
                     <Menu text="Edit" styleClass="menu">
@@ -41,22 +39,19 @@
                         <MenuItem fx:id="viewRural" text="View Rural" styleClass="menu-item" onAction="#showRuralData"/>
                         <MenuItem fx:id="viewSceptic" text="View Sceptic" styleClass="menu-item"
                                   onAction="#loadScepticData"/>
-                        <MenuItem fx:id="exportUser" text="Export User" styleClass="menu-item" onAction="#exportUsersButtonAction"/>
+                        <MenuItem fx:id="exportUser" text="Export User" styleClass="menu-item"
+                                  onAction="#exportUsersButtonAction"/>
                     </Menu>
                     <Menu text="Window" styleClass="menu">
-                        <MenuItem fx:id="toggleSearch" text="toggle Search" onAction="#toggleSearch"
+                        <MenuItem fx:id="toggleSearch" text="Toggle Search" onAction="#toggleSearch"
                                   styleClass="menu-item"/>
                     </Menu>
                 </menus>
             </MenuBar>
-
             <Region HBox.hgrow="ALWAYS"/>
-
             <TextField fx:id="searchField" promptText="Search..." prefWidth="150" disable="true"
                        styleClass="search-field"/>
-
             <Region HBox.hgrow="ALWAYS"/>
-
             <Button fx:id="themeButton" prefWidth="30" onAction="#toggleTheme"
                     styleClass="theme-button">
                 <graphic>

@@ -19,13 +19,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.stream.Collectors;
 
 @Controller
 public class MainController {
+
     private final ExportHandler exportHandler = new ExportHandler();
-    private  MainModel model;
+
+    @Autowired
+    private MainModel model;
+
     private final int nameColumnIndex = 1;
     private final int surnameColumnIndex = 2;
     private final int localityColumnIndex = 7;
@@ -53,16 +56,14 @@ public class MainController {
     private boolean isDarkTheme = false;
     private boolean isTableEditable = false;
 
-    public MainController() {
-        model = new MainModel();
-    }
-
+    @FXML
     public void initialize() {
         loadAllData();
-        tableView.setEditable(true);
         tableView.setEditable(false);
         tableView.getColumns().forEach(column -> column.setSortable(false));
-        tableView.getColumns().getFirst().setSortable(true);
+        if (!tableView.getColumns().isEmpty()) {
+            tableView.getColumns().get(0).setSortable(true);
+        }
         searchField.textProperty().addListener((observable, oldValue, newValue) -> applySearchFilter(newValue));
     }
 
@@ -104,16 +105,7 @@ public class MainController {
 
     @FXML
     private void loadScepticData() {
-        currentData = model.getScepticDisplayData()
-                           .stream()
-                           .map(data -> new DisplayData(0,
-                                   data.getCodeBen(),
-                                   data.getNameBen(),
-                                   data.getSurnameBen(),
-                                   data.getPhoneBen(),
-                                   data.getAddressBen(),
-                                   data.getEmailBen()))
-                           .collect(Collectors.toCollection(FXCollections::observableArrayList));
+        currentData = model.getScepticDisplayData().stream().map(data -> new DisplayData(0, data.getCodeBen(), data.getNameBen(), data.getSurnameBen(), data.getPhoneBen(), data.getAddressBen(), data.getEmailBen())).collect(Collectors.toCollection(FXCollections::observableArrayList));
         createTableColumns(getScepticDataColumns(), getScepticDataPropertyNames());
         tableView.setItems(currentData);
     }
@@ -127,13 +119,17 @@ public class MainController {
     }
 
     @FXML
-    private void showAddUserPopup() throws SQLException {
-        AddUserDialogController addUserDialogController = new AddUserDialogController();
-        DisplayData data = addUserDialogController.showAddUserDialog(
-                model.getLocality(), model.getEnvironment(), model.getCard());
-        if (data != null) {
-            model.addNewUser(data);
-            loadAllData();
+    private void showAddUserPopup() {
+        try {
+            AddUserDialogController addUserDialogController = new AddUserDialogController();
+            DisplayData data = addUserDialogController.showAddUserDialog(
+                    model.getLocality(), model.getEnvironment(), model.getCard());
+            if (data != null) {
+                model.addNewUser(data);
+                loadAllData();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -205,13 +201,6 @@ public class MainController {
         }
     }
 
-    private boolean isColumnRelevant(String columnName) {
-        return switch (columnName) {
-            case "BeneficiaryId", "Name", "Surname", "Phone Number", "Address", "Email", "Operations" -> true;
-            default -> false;
-        };
-    }
-
     private TableCell<DisplayData, String> createOperationsCell() {
         return new TableCell<DisplayData, String>() {
             @Override
@@ -242,7 +231,7 @@ public class MainController {
             case "Name" -> data.setNameBen(newValue);
             case "Surname" -> data.setSurnameBen(newValue);
             case "Phone Number" -> data.setPhoneBen(newValue);
-            case "IDNP" -> data.setIDNP(newValue);
+            case "IDNP" -> data.setCodeBen(newValue);
             case "Address" -> data.setAddressBen(newValue);
             case "Email" -> data.setEmailBen(newValue);
         }
@@ -284,7 +273,7 @@ public class MainController {
                 column.setOnEditCommit(event -> updateTableRow(event, columnNames[finalI]));
             }
             column.setStyle("-fx-alignment: CENTER;");
-            column.setPrefWidth(columnNames[i].equals("Email") ? 180 : columnNames[i].equals("CardNumber") ? 140 : 129);
+            column.setPrefWidth(columnNames[i].equals("Email") ? 180 : 129);
             if (columnNames[i].equals("Operations") || isAllDataDisplayed || isColumnRelevant(columnNames[i])) {
                 tableView.getColumns().add(column);
             }
@@ -295,14 +284,20 @@ public class MainController {
         return value ? text + " ✔" : text.replace(" ✔", "");
     }
 
+    private boolean isColumnRelevant(String columnName) {
+        return switch (columnName) {
+            case "BeneficiaryId", "Name", "Surname", "Phone Number", "Address", "Email", "Operations" -> true;
+            default -> false;
+        };
+    }
+
     private String[] getAllDataColumns() {
         return new String[]{"BeneficiaryId", "Name", "Surname", "Phone Number", "IDNP", "Address", "Email", "Locality",
                 "Environment", "CardNumber", "Operations"};
     }
 
     private String[] getAllDataPropertyNames() {
-        return new String[]{"codeBen", "nameBen", "surnameBen", "phoneBen", "IDNP", "addressBen", "emailBen",
-                "localityName", "environment", "cardNumber", "operations"};
+        return new String[]{"codeBen", "nameBen", "surnameBen", "phoneBen", "IDNP", "addressBen", "emailBen", "localityName", "environment", "cardNumber", "operations"};
     }
 
     private String[] getScepticDataColumns() {
