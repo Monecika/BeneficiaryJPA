@@ -1,25 +1,9 @@
-package ceiti.md.beneficiaryfx.model.entities;
+package ceiti.md.beneficiaryfx.model.repositories;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import ceiti.md.beneficiaryfx.model.entities.Users;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.Date;
-
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-@Entity
-public class Users {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ID;
-    private String username;
-    private String password;
-    private Date createdAt;
-    private int roleID;
+@Repository
+public interface UsersRepository extends JpaRepository<Users, Integer> {
 }

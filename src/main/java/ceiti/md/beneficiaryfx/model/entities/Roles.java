@@ -1,27 +1,18 @@
-package ceiti.md.beneficiaryfx.model.entity;
+package ceiti.md.beneficiaryfx.model.entities;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Entity
 public class Roles {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ID;
+    @Column(name = "rolename")
     private String role;
-
-    public Roles(int ID, String role) {
-        this.ID = ID;
-        this.role = role;
-    }
-
-    public int getID() {
-        return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 }

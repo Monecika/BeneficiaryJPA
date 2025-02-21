@@ -1,7 +1,7 @@
 package ceiti.md.beneficiaryfx.controller;
 
 import ceiti.md.beneficiaryfx.model.MainModel;
-import ceiti.md.beneficiaryfx.model.entity.DisplayData;
+import ceiti.md.beneficiaryfx.model.entities.DisplayData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,14 +15,17 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.stream.Collectors;
 
+@Controller
 public class MainController {
     private final ExportHandler exportHandler = new ExportHandler();
-    private final MainModel model;
+    private  MainModel model;
     private final int nameColumnIndex = 1;
     private final int surnameColumnIndex = 2;
     private final int localityColumnIndex = 7;
@@ -163,7 +166,7 @@ public class MainController {
 
     private void changeTheme() {
         String theme = isDarkTheme ? "dark.css" : "light.css";
-        String cssFilePath = "/org/project/benfx/css/" + theme;
+        String cssFilePath = "/ceiti/md/beneficiaryfx/css/" + theme;
         URL cssFileURL = getClass().getResource(cssFilePath);
         if (cssFileURL != null) {
             applyStylesheet(cssFileURL);
@@ -173,8 +176,8 @@ public class MainController {
     }
 
     private void updateThemeIcon() {
-        String iconPath = isDarkTheme ? "/org/project/benfx/icons/themeIcons/light_theme.png"
-                : "/org/project/benfx/icons/themeIcons/dark_theme.png";
+        String iconPath = isDarkTheme ? "/ceiti/md/beneficiaryfx/icons/themeIcons/light_theme.png"
+                : "/ceiti/md/beneficiaryfx/icons/themeIcons/dark_theme.png";
         Image icon = new Image(getClass().getResource(iconPath).toExternalForm());
         ImageView imageView = new ImageView(icon);
         imageView.setFitHeight(16);

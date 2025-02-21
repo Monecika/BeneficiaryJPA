@@ -1,20 +1,36 @@
-package ceiti.md.beneficiaryfx.model.entities;
+package ceiti.md.beneficiaryfx.model.services;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import ceiti.md.beneficiaryfx.model.entities.Environments;
+import ceiti.md.beneficiaryfx.model.repositories.MyCrudRepository;
+import org.springframework.stereotype.Service;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-@Entity
-public class Environments {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ID;
-    @Column(name = "environmenttype")
-    private String environment;
-    @Column(name = "popularitypercentage")
-    private int popularityPercentage;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class EnvironmentsService implements MyCrudRepository<Environments> {
+    @Override
+    public List<Environments> findAll() {
+        return List.of();
+    }
+
+    @Override
+    public Optional<Environments> findById(int id) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Environments save(Environments entity) {
+        return null;
+    }
+
+    @Override
+    public void update(Environments entity) {
+
+    }
+
+    @Override
+    public void deleteById(int id) {
+
+    }
 }

@@ -1,18 +1,36 @@
-package ceiti.md.beneficiaryfx.model.entities;
+package ceiti.md.beneficiaryfx.model.services;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import ceiti.md.beneficiaryfx.model.entities.Roles;
+import ceiti.md.beneficiaryfx.model.repositories.MyCrudRepository;
+import org.springframework.stereotype.Service;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-@Entity
-public class Roles {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ID;
-    @Column(name = "rolename")
-    private String role;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class RolesService implements MyCrudRepository<Roles> {
+    @Override
+    public List<Roles> findAll() {
+        return List.of();
+    }
+
+    @Override
+    public Optional<Roles> findById(int id) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Roles save(Roles entity) {
+        return null;
+    }
+
+    @Override
+    public void update(Roles entity) {
+
+    }
+
+    @Override
+    public void deleteById(int id) {
+
+    }
 }

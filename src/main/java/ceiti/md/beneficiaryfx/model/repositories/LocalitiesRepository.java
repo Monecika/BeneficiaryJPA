@@ -1,24 +1,9 @@
-package ceiti.md.beneficiaryfx.model.entities;
+package ceiti.md.beneficiaryfx.model.repositories;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import ceiti.md.beneficiaryfx.model.entities.Localities;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-@Entity
-public class Localities {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ID;
-    private String localityName;
-    private String localityType;
-    private int environmentID;
-    private int population;
-    private double area;
+@Repository
+public interface LocalitiesRepository extends JpaRepository<Localities, Integer> {
 }

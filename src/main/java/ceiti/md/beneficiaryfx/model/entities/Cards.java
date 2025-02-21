@@ -1,4 +1,4 @@
-package ceiti.md.beneficiaryfx.model.entity;
+package ceiti.md.beneficiaryfx.model.entities;
 
 
 import jakarta.persistence.Entity;

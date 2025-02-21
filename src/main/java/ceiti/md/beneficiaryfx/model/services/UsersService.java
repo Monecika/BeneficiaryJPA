@@ -1,25 +1,36 @@
-package ceiti.md.beneficiaryfx.model.entities;
+package ceiti.md.beneficiaryfx.model.services;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import ceiti.md.beneficiaryfx.model.entities.Users;
+import ceiti.md.beneficiaryfx.model.repositories.MyCrudRepository;
+import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-@Entity
-public class Users {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ID;
-    private String username;
-    private String password;
-    private Date createdAt;
-    private int roleID;
+@Service
+public class UsersService implements MyCrudRepository<Users> {
+    @Override
+    public List<Users> findAll() {
+        return List.of();
+    }
+
+    @Override
+    public Optional<Users> findById(int id) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Users save(Users entity) {
+        return null;
+    }
+
+    @Override
+    public void update(Users entity) {
+
+    }
+
+    @Override
+    public void deleteById(int id) {
+
+    }
 }

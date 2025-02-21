@@ -1,9 +1,9 @@
 package ceiti.md.beneficiaryfx.controller;
 
-import ceiti.md.beneficiaryfx.model.entity.Cards;
-import ceiti.md.beneficiaryfx.model.entity.DisplayData;
-import ceiti.md.beneficiaryfx.model.entity.Environments;
-import ceiti.md.beneficiaryfx.model.entity.Localities;
+import ceiti.md.beneficiaryfx.model.entities.Cards;
+import ceiti.md.beneficiaryfx.model.entities.DisplayData;
+import ceiti.md.beneficiaryfx.model.entities.Environments;
+import ceiti.md.beneficiaryfx.model.entities.Localities;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;

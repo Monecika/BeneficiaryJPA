@@ -1,24 +1,36 @@
-package ceiti.md.beneficiaryfx.model.entities;
+package ceiti.md.beneficiaryfx.model.services;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import ceiti.md.beneficiaryfx.model.entities.Localities;
+import ceiti.md.beneficiaryfx.model.repositories.MyCrudRepository;
+import org.springframework.stereotype.Service;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-@Entity
-public class Localities {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ID;
-    private String localityName;
-    private String localityType;
-    private int environmentID;
-    private int population;
-    private double area;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public  class LocalitiesService implements MyCrudRepository<Localities> {
+    @Override
+    public List<Localities> findAll() {
+        return List.of();
+    }
+
+    @Override
+    public Optional<Localities> findById(int id) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Localities save(Localities entity) {
+        return null;
+    }
+
+    @Override
+    public void update(Localities entity) {
+
+    }
+
+    @Override
+    public void deleteById(int id) {
+
+    }
 }

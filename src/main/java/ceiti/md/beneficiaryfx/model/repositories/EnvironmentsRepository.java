@@ -1,20 +1,9 @@
-package ceiti.md.beneficiaryfx.model.entities;
+package ceiti.md.beneficiaryfx.model.repositories;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import ceiti.md.beneficiaryfx.model.entities.Environments;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-@Entity
-public class Environments {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ID;
-    @Column(name = "environmenttype")
-    private String environment;
-    @Column(name = "popularitypercentage")
-    private int popularityPercentage;
+@Repository
+public interface EnvironmentsRepository extends JpaRepository<Environments, Integer> {
 }

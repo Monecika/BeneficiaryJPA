@@ -1,18 +1,9 @@
-package ceiti.md.beneficiaryfx.model.entities;
+package ceiti.md.beneficiaryfx.model.repositories;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import ceiti.md.beneficiaryfx.model.entities.Roles;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-@Entity
-public class Roles {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ID;
-    @Column(name = "rolename")
-    private String role;
+@Repository
+public interface RolesRepository extends JpaRepository<Roles, Integer> {
 }

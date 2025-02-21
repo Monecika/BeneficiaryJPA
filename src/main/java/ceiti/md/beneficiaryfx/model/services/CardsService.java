@@ -1,25 +1,37 @@
-package ceiti.md.beneficiaryfx.model.entities;
+package ceiti.md.beneficiaryfx.model.services;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import ceiti.md.beneficiaryfx.model.entities.Cards;
+import ceiti.md.beneficiaryfx.model.repositories.MyCrudRepository;
+import org.springframework.stereotype.Service;
 
-import java.sql.Date;
+import java.util.List;
+import java.util.Optional;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-@Entity
-public class Cards {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ID;
-    private String cardNr;
-    private String cardType;
-    private Date dateExpire;
+@Service
+public class CardsService implements MyCrudRepository<Cards> {
+    @Override
+    public List<Cards> findAll() {
+        return List.of();
+    }
+
+    @Override
+    public Optional<Cards> findById(int id) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Cards save(Cards entity) {
+        return null;
+    }
+
+    @Override
+    public void update(Cards entity) {
+
+    }
+
+    @Override
+    public void deleteById(int id) {
+
+    }
 }

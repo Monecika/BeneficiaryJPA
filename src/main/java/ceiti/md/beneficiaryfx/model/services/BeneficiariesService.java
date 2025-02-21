@@ -1,74 +1,44 @@
-package ceiti.md.beneficiaryfx.model.entities;
+package ceiti.md.beneficiaryfx.model.services;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import ceiti.md.beneficiaryfx.model.entities.Beneficiaries;
+import ceiti.md.beneficiaryfx.model.repositories.BeneficiariesRepository;
+import ceiti.md.beneficiaryfx.model.repositories.MyCrudRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Service;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-@Entity
-public class Beneficiaries {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ID;
+import java.util.List;
+import java.util.Optional;
 
-    @Column(name = "nrben")
-    private String codeBen;
-    @Column(name = "name")
-    private String nameBen;
-    @Column(name = "surname")
-    private String surnameBen;
-    @Column(name = "phone")
-    private String phoneBen;
-    @Column(name = "idnp")
-    private String IDNP;
-    @Column(name = "address")
-    private String addressBen;
-    @Column(name = "email")
-    private String emailBen;
-    @Column(name = "localityid")
-    private int localityID;
-    @Column(name = "environment")
-    private String environment;
-    @Column(name = "cardid")
-    private int cardID;
+@Service
+public class BeneficiariesService implements MyCrudRepository<Beneficiaries> {
+    private BeneficiariesRepository beneficiariesRepository;
 
-    public Beneficiaries(String codeBen, String nameBen, String surnameBen, String phoneBen, String IDNP,
-                         String addressBen, String emailBen, String environment) {
-        this.codeBen = codeBen;
-        this.nameBen = nameBen;
-        this.surnameBen = surnameBen;
-        this.phoneBen = phoneBen;
-        this.IDNP = IDNP;
-        this.addressBen = addressBen;
-        this.emailBen = emailBen;
-        this.environment = environment;
+    public BeneficiariesService() {
     }
 
-    public Beneficiaries(int ID, String codeBen, String nameBen, String surnameBen, String phoneBen,
-                         String addressBen, String emailBen, String environment) {
-        this.ID = ID;
-        this.codeBen = codeBen;
-        this.nameBen = nameBen;
-        this.surnameBen = surnameBen;
-        this.phoneBen = phoneBen;
-        this.addressBen = addressBen;
-        this.emailBen = emailBen;
-        this.environment = environment;
+    @Override
+    public List<Beneficiaries> findAll() {
+        return beneficiariesRepository.findAll();
     }
 
-    public Beneficiaries(int ID, String codeBen, String nameBen, String surnameBen, String phoneBen,
-                         String addressBen, String emailBen) {
-        this.ID = ID;
-        this.codeBen = codeBen;
-        this.nameBen = nameBen;
-        this.surnameBen = surnameBen;
-        this.phoneBen = phoneBen;
-        this.addressBen = addressBen;
-        this.emailBen = emailBen;
+    @Override
+    public Optional<Beneficiaries> findById(int id) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Beneficiaries save(Beneficiaries entity) {
+        return null;
+    }
+
+    @Override
+    public void update(Beneficiaries entity) {
+
+    }
+
+    @Override
+    public void deleteById(int id) {
+
     }
 }
-
-

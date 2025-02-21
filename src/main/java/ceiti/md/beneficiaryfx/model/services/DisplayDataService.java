@@ -1,19 +1,36 @@
-package ceiti.md.beneficiaryfx.model.entities;
+package ceiti.md.beneficiaryfx.model.services;
 
-import lombok.Data;
+import ceiti.md.beneficiaryfx.model.entities.DisplayData;
+import ceiti.md.beneficiaryfx.model.repositories.MyCrudRepository;
+import org.springframework.stereotype.Service;
 
-@Data
-public class DisplayData extends Beneficiaries {
-    private String localityName;
-    private String cardNumber;
+import java.util.List;
+import java.util.Optional;
 
-    public DisplayData(int ID, String codeBen, String nameBen, String surnameBen, String phoneBen, String addressBen, String emailBen) {
-        super(ID, codeBen, nameBen, surnameBen, phoneBen, addressBen, emailBen);
+@Service
+public class DisplayDataService implements MyCrudRepository<DisplayData> {
+    @Override
+    public List<DisplayData> findAll() {
+        return List.of();
     }
 
-    public DisplayData(String codeBen, String nameBen, String surnameBen, String phoneBen, String IDNP, String addressBen, String emailBen, String localityName, String environment, String cardNumber) {
-        super(codeBen, nameBen, surnameBen, phoneBen, IDNP, addressBen, emailBen, environment);
-        this.localityName = localityName;
-        this.cardNumber = cardNumber;
+    @Override
+    public Optional<DisplayData> findById(int id) {
+        return Optional.empty();
+    }
+
+    @Override
+    public DisplayData save(DisplayData entity) {
+        return null;
+    }
+
+    @Override
+    public void update(DisplayData entity) {
+
+    }
+
+    @Override
+    public void deleteById(int id) {
+
     }
 }
