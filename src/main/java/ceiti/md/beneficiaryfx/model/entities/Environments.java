@@ -1,15 +1,22 @@
 package ceiti.md.beneficiaryfx.model.entity;
 
-public class Environments {
-    private int ID;
-    private String environment;
-    private int popularityPercentage;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-    public Environments(int ID, String environment, int popularityPercentage) {
-        this.ID = ID;
-        this.environment = environment;
-        this.popularityPercentage = popularityPercentage;
-    }
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Entity
+public class Environments {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int ID;
+    @Column(name ="environmenttype")
+    private String environment;
+    @Column(name = "popularitypercentage")
+    private int popularityPercentage;
 
     public int getID() {
         return ID;
