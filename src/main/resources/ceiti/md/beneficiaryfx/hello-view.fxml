@@ -5,7 +5,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-
 <VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="ceiti.md.beneficiaryfx.controller.MainController">
 
@@ -41,7 +40,8 @@
                         <MenuItem fx:id="viewRural" text="View Rural" styleClass="menu-item" onAction="#showRuralData"/>
                         <MenuItem fx:id="viewSceptic" text="View Sceptic" styleClass="menu-item"
                                   onAction="#loadScepticData"/>
-                        <MenuItem fx:id="exportUser" text="Export User" styleClass="menu-item" onAction="#exportUsersButtonAction"/>
+                        <MenuItem fx:id="exportUser" text="Export User" styleClass="menu-item"
+                                  onAction="#exportUsersButtonAction"/>
                     </Menu>
                     <Menu text="Window" styleClass="menu">
                         <MenuItem fx:id="toggleSearch" text="toggle Search" onAction="#toggleSearch"

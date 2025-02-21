@@ -4,7 +4,10 @@ import ceiti.md.beneficiaryfx.model.MainModel;
 import ceiti.md.beneficiaryfx.model.entity.DisplayData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableCell;
@@ -58,9 +61,14 @@ public class MainController {
         loadAllData();
         tableView.setEditable(true);
         tableView.setEditable(false);
-        tableView.getColumns().forEach(column -> column.setSortable(false));
-        tableView.getColumns().getFirst().setSortable(true);
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> applySearchFilter(newValue));
+        tableView.getColumns()
+                 .forEach(column -> column.setSortable(false));
+        tableView.getColumns()
+                 .getFirst()
+                 .setSortable(true)
+        ;
+        searchField.textProperty()
+                   .addListener((observable, oldValue, newValue) -> applySearchFilter(newValue));
     }
 
     @FXML
@@ -79,10 +87,10 @@ public class MainController {
     }
 
     @FXML
-    private void toggleTheme() {
+    private void toggleTheme(ActionEvent event) {
         isDarkTheme = !isDarkTheme;
-        changeTheme();
-        updateThemeIcon();
+        changeTheme(event);
+//        updateThemeIcon();
     }
 
     @FXML
@@ -119,7 +127,8 @@ public class MainController {
     private void showRuralData() {
         loadAllData();
         ObservableList<DisplayData> ruralData = currentData.filtered(data ->
-                data.getEnvironment().equalsIgnoreCase("rural"));
+                data.getEnvironment()
+                    .equalsIgnoreCase("rural"));
         tableView.setItems(ruralData);
     }
 
@@ -140,8 +149,11 @@ public class MainController {
         tableView.setEditable(isTableEditable);
         updateUser.setText(isTableEditable ? "Revert to View Mode" : "Update User");
         if (!isTableEditable) {
-            tableView.getColumns().forEach(column -> column.setEditable(false));
-            tableView.getItems().forEach(item -> tableView.getSelectionModel().clearSelection());
+            tableView.getColumns()
+                     .forEach(column -> column.setEditable(false));
+            tableView.getItems()
+                     .forEach(item -> tableView.getSelectionModel()
+                                               .clearSelection());
         } else {
             makeColumnsEditable();
         }
@@ -150,32 +162,55 @@ public class MainController {
     @FXML
     private void exportUsersButtonAction() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("PDF Files", "*.pdf"),
-                new FileChooser.ExtensionFilter("Excel Files", "*.xlsx"));
+        fileChooser.getExtensionFilters()
+                   .addAll(
+                           new FileChooser.ExtensionFilter("PDF Files", "*.pdf"),
+                           new FileChooser.ExtensionFilter("Excel Files", "*.xlsx"));
         fileChooser.setInitialDirectory(new java.io.File(System.getProperty("user.home")));
-        java.io.File selectedFile = fileChooser.showSaveDialog(themeButton.getScene().getWindow());
+        java.io.File selectedFile = fileChooser.showSaveDialog(themeButton.getScene()
+                                                                          .getWindow());
         if (selectedFile != null) {
             String filePath = selectedFile.getAbsolutePath();
             exportHandler.handleExportRequest(tableView, filePath);
         }
     }
 
-    private void changeTheme() {
-        String theme = isDarkTheme ? "dark.css" : "light.css";
-        String cssFilePath = "/org/project/benfx/css/" + theme;
-        URL cssFileURL = getClass().getResource(cssFilePath);
-        if (cssFileURL != null) {
-            applyStylesheet(cssFileURL);
-        } else {
-            System.err.println("CSS file not found: " + cssFilePath);
-        }
+    private void changeTheme(ActionEvent event) {
+        String activeTheme = isDarkTheme ? "dark.css" : "light.css";
+        String inactiveTheme = isDarkTheme ? "light.css" : "dark.css";
+
+        String cssFilePath = "/ceiti/md/beneficiary/css" + activeTheme;
+        String unCssFilePath = "/ceiti/md/beneficiary/css" + inactiveTheme;
+        String css = getClass().getResource(cssFilePath)
+                               .toExternalForm()
+                ;
+        String notCss = getClass().getResource(unCssFilePath)
+                                  .toExternalForm()
+                ;
+
+        Scene scene = ((Node) event.getSource()).getScene();
+        scene.getStylesheets()
+             .add(css);
+        scene.getStylesheets()
+             .remove(notCss);
+        Parent root = scene.getRoot();
+// Reapply CSS and request layout update
+        root.applyCss();
+        root.layout();
+//        URL cssFileURL = getClass().getResource(cssFilePath);
+//        if (cssFileURL != null) {
+//            applyStylesheet(cssFileURL);
+//        } else {
+//            System.err.println("CSS file not found: " + cssFilePath);
+//        }
+
     }
 
     private void updateThemeIcon() {
         String iconPath = isDarkTheme ? "/org/project/benfx/icons/themeIcons/light_theme.png"
                 : "/org/project/benfx/icons/themeIcons/dark_theme.png";
-        Image icon = new Image(getClass().getResource(iconPath).toExternalForm());
+        Image icon = new Image(getClass().getResource(iconPath)
+                                         .toExternalForm());
         ImageView imageView = new ImageView(icon);
         imageView.setFitHeight(16);
         imageView.setFitWidth(16);
@@ -185,8 +220,10 @@ public class MainController {
     private void applyStylesheet(URL cssFileURL) {
         Scene scene = themeButton.getScene();
         if (scene != null) {
-            scene.getStylesheets().clear();
-            scene.getStylesheets().add(cssFileURL.toExternalForm());
+            scene.getStylesheets()
+                 .clear();
+            scene.getStylesheets()
+                 .add(cssFileURL.toExternalForm());
         }
     }
 
@@ -195,9 +232,15 @@ public class MainController {
             tableView.setItems(currentData);
         } else {
             ObservableList<DisplayData> filteredList = currentData.filtered(data ->
-                    data.getNameBen().toLowerCase().contains(filter.toLowerCase())
-                            || data.getSurnameBen().toLowerCase().contains(filter.toLowerCase())
-                            || data.getLocalityName().toLowerCase().contains(filter.toLowerCase()));
+                    data.getNameBen()
+                        .toLowerCase()
+                        .contains(filter.toLowerCase())
+                            || data.getSurnameBen()
+                                   .toLowerCase()
+                                   .contains(filter.toLowerCase())
+                            || data.getLocalityName()
+                                   .toLowerCase()
+                                   .contains(filter.toLowerCase()));
             tableView.setItems(filteredList);
         }
     }
@@ -247,22 +290,29 @@ public class MainController {
     }
 
     private void makeColumnsEditable() {
-        tableView.getColumns().forEach(column ->
-                column.setEditable(!column.getText().equals("BeneficiaryId")
-                        && !column.getText().equals("Environment")
-                        && !column.getText().equals("CardNumber")
-                        && !column.getText().equals("Locality")));
+        tableView.getColumns()
+                 .forEach(column ->
+                         column.setEditable(!column.getText()
+                                                   .equals("BeneficiaryId")
+                                 && !column.getText()
+                                           .equals("Environment")
+                                 && !column.getText()
+                                           .equals("CardNumber")
+                                 && !column.getText()
+                                           .equals("Locality")));
     }
 
     private void toggleColumnSorting(int columnIndex, MenuItem menuItem) {
-        TableColumn<DisplayData, ?> column = tableView.getColumns().get(columnIndex);
+        TableColumn<DisplayData, ?> column = tableView.getColumns()
+                                                      .get(columnIndex);
         boolean isSortable = !column.isSortable();
         column.setSortable(isSortable);
         menuItem.setText(addOrRemoveTick(menuItem.getText(), isSortable));
     }
 
     private void createTableColumns(String[] columnNames, String[] propertyNames) {
-        tableView.getColumns().clear();
+        tableView.getColumns()
+                 .clear();
         for (int i = 0; i < columnNames.length; i++) {
             TableColumn<DisplayData, String> column = new TableColumn<>(columnNames[i]);
             if (!columnNames[i].equals("Operations")) {
@@ -283,7 +333,8 @@ public class MainController {
             column.setStyle("-fx-alignment: CENTER;");
             column.setPrefWidth(columnNames[i].equals("Email") ? 180 : columnNames[i].equals("CardNumber") ? 140 : 129);
             if (columnNames[i].equals("Operations") || isAllDataDisplayed || isColumnRelevant(columnNames[i])) {
-                tableView.getColumns().add(column);
+                tableView.getColumns()
+                         .add(column);
             }
         }
     }
