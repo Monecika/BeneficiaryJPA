@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ceiti.md.beneficiaryfx.controller.MainController">
+
+    <HBox alignment="CENTER" VBox.vgrow="NEVER">
+        <children>
+            <Label text="Logo" styleClass="logo-label">
+                <HBox.margin>
+                    <Insets left="20"/>
+                </HBox.margin>
+            </Label>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <MenuBar fx:id="menuBar" prefWidth="260" styleClass="menu-bar"
+                     style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                <menus>
+                    <Menu text="Home" styleClass="menu"/>
+                    <Menu text="Edit" styleClass="menu">
+                        <MenuItem fx:id="updateUser" text="Update User" styleClass="menu-item"
+                                  onAction="#toggleTableEditability"/>
+                        <MenuItem fx:id="addUser" text="Add User" styleClass="menu-item" onAction="#showAddUserPopup"/>
+                    </Menu>
+                    <Menu text="Filter" styleClass="menu">
+                        <MenuItem fx:id="filterName" text="Filter By Name" onAction="#enableSortByName"
+                                  styleClass="menu-item"/>
+                        <MenuItem fx:id="filterSurname" text="Filter By Surname" onAction="#enableSortBySurname"
+                                  styleClass="menu-item"/>
+                        <MenuItem fx:id="filterLocality" text="Filter By Locality" onAction="#enableSortByLocality"
+                                  styleClass="menu-item"/>
+                    </Menu>
+                    <Menu text="View" styleClass="menu">
+                        <MenuItem fx:id="viewAll" text="View All" styleClass="menu-item" onAction="#loadAllData"/>
+                        <MenuItem fx:id="viewRural" text="View Rural" styleClass="menu-item" onAction="#showRuralData"/>
+                        <MenuItem fx:id="viewSceptic" text="View Sceptic" styleClass="menu-item"
+                                  onAction="#loadScepticData"/>
+                        <MenuItem fx:id="exportUser" text="Export User" styleClass="menu-item" onAction="#exportUsersButtonAction"/>
+                    </Menu>
+                    <Menu text="Window" styleClass="menu">
+                        <MenuItem fx:id="toggleSearch" text="toggle Search" onAction="#toggleSearch"
+                                  styleClass="menu-item"/>
+                    </Menu>
+                </menus>
+            </MenuBar>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <TextField fx:id="searchField" promptText="Search..." prefWidth="150" disable="true"
+                       styleClass="search-field"/>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Button fx:id="themeButton" prefWidth="30" onAction="#toggleTheme"
+                    styleClass="theme-button">
+                <graphic>
+                    <ImageView fitHeight="16" fitWidth="16">
+                        <image>
+                            <Image url="@icons/themeIcons/dark_theme.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+                <HBox.margin>
+                    <Insets right="20"/>
+                </HBox.margin>
+            </Button>
+        </children>
+    </HBox>
+
+    <TableView fx:id="tableView" VBox.vgrow="ALWAYS" editable="true" styleClass="table-view">
+        <VBox.margin>
+            <Insets top="20" left="20" right="20" bottom="20"/>
+        </VBox.margin>
+    </TableView>
+</VBox>

@@ -1,0 +1,118 @@
+.root {
+    -fx-background-color: #f4f4f4;
+    -fx-text-fill: #333333;
+}
+
+* {
+    -fx-text-fill: #333333;
+}
+
+.menu-bar {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.menu {
+    -fx-background-color: transparent;
+    -fx-text-fill: #333333;
+}
+
+.menu:hover {
+    -fx-background-color: #e0e0e0;
+}
+
+.menu-item {
+    -fx-background-color: transparent;
+    -fx-text-fill: #333333;
+}
+
+.menu-item:hover {
+    -fx-background-color: #e0e0e0;
+    -fx-text-fill: #333333;
+}
+
+.button {
+    -fx-background-color: #dddddd;
+    -fx-border-color: #cccccc;
+    -fx-text-fill: #333333;
+}
+
+.button:hover {
+    -fx-background-color: #bbbbbb;
+    -fx-text-fill: #333333;
+}
+
+.text-field,
+.search-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-text-fill: #333333;
+}
+
+.text-field:hover,
+.search-field:hover {
+    -fx-border-color: #aaaaaa;
+}
+
+.table-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-selection-bar: #4d90ff;
+}
+
+.table-column {
+    -fx-background-color: #f0f0f0;
+    -fx-text-fill: #333333;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER;
+}
+
+.table-header-cell {
+    -fx-background-color: #f0f0f0;
+    -fx-text-fill: #333333;
+    -fx-font-weight: bold;
+    -fx-border-color: #cccccc;
+}
+
+.table-cell {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-text-fill: #333333;
+    -fx-font-weight: 300;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #e0e0e0;
+}
+
+.logo-label {
+    -fx-font-family: 'Comic Sans MS';
+    -fx-font-size: 24;
+    -fx-text-fill: #333333;
+}
+
+.theme-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.menu-bar .menu {
+    -fx-text-fill: #333333;
+}
+
+.menu-item {
+    -fx-background-color: #f0f0f0;
+    -fx-text-fill: #333333;
+}
+
+.menu-item .button {
+    -fx-background-color: #dddddd;
+    -fx-text-fill: #333333;
+}
+
+.table-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+}
