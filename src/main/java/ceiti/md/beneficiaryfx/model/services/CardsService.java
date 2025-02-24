@@ -46,7 +46,6 @@ public class CardsService implements MyCrudRepository<Cards> {
         cardsRepository.delete(entity);
     }
 
-    // Custom method to find a card by its card number
     public Cards getCard(String cardNumber) {
         return cardsRepository.findByCardNr(cardNumber)
                               .orElse(null);

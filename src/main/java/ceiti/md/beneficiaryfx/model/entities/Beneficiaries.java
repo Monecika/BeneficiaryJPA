@@ -48,18 +48,6 @@ public class Beneficiaries {
     }
 
     public Beneficiaries(int ID, String codeBen, String nameBen, String surnameBen, String phoneBen,
-                         String addressBen, String emailBen, String environment) {
-        this.ID = ID;
-        this.codeBen = codeBen;
-        this.nameBen = nameBen;
-        this.surnameBen = surnameBen;
-        this.phoneBen = phoneBen;
-        this.addressBen = addressBen;
-        this.emailBen = emailBen;
-        this.environment = environment;
-    }
-
-    public Beneficiaries(int ID, String codeBen, String nameBen, String surnameBen, String phoneBen,
                          String addressBen, String emailBen) {
         this.ID = ID;
         this.codeBen = codeBen;

@@ -18,7 +18,6 @@ module ceiti.md.beneficiaryfx {
     requires org.apache.poi.poi;
     requires org.apache.poi.ooxml;
 
-    // Open packages to allow reflective access
     opens ceiti.md.beneficiaryfx to javafx.fxml, spring.core;
     opens ceiti.md.beneficiaryfx.controller to javafx.fxml, spring.core, spring.beans;
     opens ceiti.md.beneficiaryfx.model to javafx.base, spring.core, spring.beans;
@@ -26,7 +25,6 @@ module ceiti.md.beneficiaryfx {
     opens ceiti.md.beneficiaryfx.model.repositories to spring.core;
     opens ceiti.md.beneficiaryfx.model.services to spring.core, spring.beans;
 
-    // Export the model package to spring.beans for normal access
     exports ceiti.md.beneficiaryfx.model to spring.beans;
 
     exports ceiti.md.beneficiaryfx;

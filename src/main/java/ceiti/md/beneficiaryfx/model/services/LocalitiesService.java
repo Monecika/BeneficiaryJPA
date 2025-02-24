@@ -47,7 +47,6 @@ public class LocalitiesService implements MyCrudRepository<Localities> {
         localitiesRepository.delete(entity);
     }
 
-    // Custom method to find a locality by its name
     public Localities getLocality(String localityName) {
         return localitiesRepository.findByLocalityName(localityName).orElse(null);
     }
