@@ -20,5 +20,11 @@ public class DisplayData {
     private String cardNumber;
 
     public DisplayData(String codeBen, String name, String surname, String phone, String address, String email) {
+        this.codeBen = codeBen;
+        this.name = name;
+        this.surname = surname;
+        this.phoneNumber = phone;
+        this.address = address;
+        this.email = email;
     }
 }

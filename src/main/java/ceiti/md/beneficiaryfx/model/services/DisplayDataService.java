@@ -47,6 +47,13 @@ public class DisplayDataService implements MyCrudRepository<DisplayData> {
         return displayData;
     }
 
+    private static DisplayData getScepticDisplayData(Beneficiaries beneficiary) {
+        DisplayData displayData = new DisplayData(beneficiary.getCodeBen(), beneficiary.getNameBen(),
+                beneficiary.getSurnameBen(), beneficiary.getPhoneBen(), beneficiary.getAddressBen(),
+                beneficiary.getEmailBen());
+        return displayData;
+    }
+
     private static String generateRandomCardNumber() {
         Random random = new Random();
         StringBuilder cardNumber = new StringBuilder();
@@ -65,6 +72,18 @@ public class DisplayDataService implements MyCrudRepository<DisplayData> {
 
         for (Beneficiaries beneficiary : beneficiariesList) {
             DisplayData displayData = getDisplayData(beneficiary);
+            displayDataList.add(displayData);
+        }
+
+        return displayDataList;
+    }
+
+    public ObservableList<DisplayData> findAllSceptic() {
+        ObservableList<DisplayData> displayDataList = FXCollections.observableArrayList();
+        ObservableList<Beneficiaries> beneficiariesList = beneficiariesService.findAll();
+
+        for (Beneficiaries beneficiary : beneficiariesList) {
+            DisplayData displayData = getScepticDisplayData(beneficiary);
             displayDataList.add(displayData);
         }
 

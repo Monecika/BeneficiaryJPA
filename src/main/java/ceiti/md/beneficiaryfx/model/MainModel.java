@@ -32,8 +32,8 @@ public class MainModel {
         return displayDataService.findAll();
     }
 
-    public ObservableList<ScepticData> getScepticDisplayData() {
-        return scepticDataService.findAll();
+    public ObservableList<DisplayData> getScepticDisplayData() {
+        return displayDataService.findAllSceptic();
     }
 
     public void deleteBen(String codeBen) {

@@ -110,17 +110,14 @@ public class MainController {
 
     @FXML
     private void loadScepticData() {
-        currentData = model.getScepticDisplayData()
-                           .stream()
-                           .map(data -> new DisplayData(data.getCodeBen(), data.getName(), data.getSurname(),
-                                   data.getPhoneNumber(), data.getAddress(), data.getEmail()))
-                           .collect(Collectors.toCollection(FXCollections::observableArrayList));
+        currentData = FXCollections.observableArrayList(model.getScepticDisplayData());
+
         createTableColumns(getScepticDataColumns(), getScepticDataPropertyNames());
         tableView.setItems(currentData);
 
         adjustTableSize();
-
     }
+
 
     @FXML
     private void showRuralData() {
