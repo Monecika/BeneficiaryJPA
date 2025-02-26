@@ -37,8 +37,8 @@ public class MainModel {
     }
 
     public void deleteBen(String codeBen) {
-        Beneficiaries beneficiaries;
-        beneficiaries = beneficiariesService.getBeneficiary(codeBen);
+        Beneficiaries beneficiaries = beneficiariesService.getBeneficiary(codeBen);
+
         beneficiariesService.deleteById(beneficiaries);
     }
 

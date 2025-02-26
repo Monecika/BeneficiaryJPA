@@ -25,15 +25,12 @@ import java.util.stream.Collectors;
 public class MainController {
 
     private final ExportHandler exportHandler = new ExportHandler();
-
-    @Autowired
-    private MainModel model;
-
     private final int nameColumnIndex = 1;
     private final int surnameColumnIndex = 2;
     private final int localityColumnIndex = 7;
     private final boolean isAllDataDisplayed = true;
-
+    @Autowired
+    private MainModel model;
     @FXML
     private TableView<DisplayData> tableView;
     @FXML
@@ -60,11 +57,17 @@ public class MainController {
     public void initialize() {
         loadAllData();
         tableView.setEditable(false);
-        tableView.getColumns().forEach(column -> column.setSortable(false));
-        if (!tableView.getColumns().isEmpty()) {
-            tableView.getColumns().get(0).setSortable(true);
+        tableView.getColumns()
+                 .forEach(column -> column.setSortable(false));
+        if (!tableView.getColumns()
+                      .isEmpty()) {
+            tableView.getColumns()
+                     .get(0)
+                     .setSortable(true)
+            ;
         }
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> applySearchFilter(newValue));
+        searchField.textProperty()
+                   .addListener((observable, oldValue, newValue) -> applySearchFilter(newValue));
     }
 
     @FXML
@@ -101,29 +104,42 @@ public class MainController {
         currentData = model.getAllDisplayData();
         createTableColumns(getAllDataColumns(), getAllDataPropertyNames());
         tableView.setItems(currentData);
+
+        adjustTableSize();
     }
 
     @FXML
     private void loadScepticData() {
-        currentData = model.getScepticDisplayData().stream().map(data -> new DisplayData(0, data.getCodeBen(), data.getNameBen(), data.getSurnameBen(), data.getPhoneBen(), data.getAddressBen(), data.getEmailBen())).collect(Collectors.toCollection(FXCollections::observableArrayList));
+        currentData = model.getScepticDisplayData()
+                           .stream()
+                           .map(data -> new DisplayData(data.getCodeBen(), data.getName(), data.getSurname(),
+                                   data.getPhoneNumber(), data.getAddress(), data.getEmail()))
+                           .collect(Collectors.toCollection(FXCollections::observableArrayList));
         createTableColumns(getScepticDataColumns(), getScepticDataPropertyNames());
         tableView.setItems(currentData);
+
+        adjustTableSize();
+
     }
 
     @FXML
     private void showRuralData() {
         loadAllData();
-        ObservableList<DisplayData> ruralData = currentData.filtered(data ->
-                data.getEnvironment().equalsIgnoreCase("rural"));
-        tableView.setItems(ruralData);
+        if (currentData != null) {
+            ObservableList<DisplayData> ruralData = currentData.filtered(data -> data.getEnvironment() != null &&
+                    "rural".equalsIgnoreCase(data.getEnvironment()));
+            tableView.setItems(ruralData);
+        } else {
+            tableView.setItems(FXCollections.observableArrayList());
+        }
     }
+
 
     @FXML
     private void showAddUserPopup() {
         try {
             AddUserDialogController addUserDialogController = new AddUserDialogController();
-            DisplayData data = addUserDialogController.showAddUserDialog(
-                    model.getLocality(), model.getEnvironment(), model.getCard());
+            DisplayData data = addUserDialogController.showAddUserDialog(model.getLocality(), model.getEnvironment());
             if (data != null) {
                 model.addNewUser(data);
                 loadAllData();
@@ -139,8 +155,11 @@ public class MainController {
         tableView.setEditable(isTableEditable);
         updateUser.setText(isTableEditable ? "Revert to View Mode" : "Update User");
         if (!isTableEditable) {
-            tableView.getColumns().forEach(column -> column.setEditable(false));
-            tableView.getItems().forEach(item -> tableView.getSelectionModel().clearSelection());
+            tableView.getColumns()
+                     .forEach(column -> column.setEditable(false));
+            tableView.getItems()
+                     .forEach(item -> tableView.getSelectionModel()
+                                               .clearSelection());
         } else {
             makeColumnsEditable();
         }
@@ -149,11 +168,12 @@ public class MainController {
     @FXML
     private void exportUsersButtonAction() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("PDF Files", "*.pdf"),
-                new FileChooser.ExtensionFilter("Excel Files", "*.xlsx"));
+        fileChooser.getExtensionFilters()
+                   .addAll(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"), new FileChooser.ExtensionFilter(
+                           "Excel Files", "*.xlsx"));
         fileChooser.setInitialDirectory(new java.io.File(System.getProperty("user.home")));
-        java.io.File selectedFile = fileChooser.showSaveDialog(themeButton.getScene().getWindow());
+        java.io.File selectedFile = fileChooser.showSaveDialog(themeButton.getScene()
+                                                                          .getWindow());
         if (selectedFile != null) {
             String filePath = selectedFile.getAbsolutePath();
             exportHandler.handleExportRequest(tableView, filePath);
@@ -172,9 +192,10 @@ public class MainController {
     }
 
     private void updateThemeIcon() {
-        String iconPath = isDarkTheme ? "/ceiti/md/beneficiaryfx/icons/themeIcons/light_theme.png"
-                : "/ceiti/md/beneficiaryfx/icons/themeIcons/dark_theme.png";
-        Image icon = new Image(getClass().getResource(iconPath).toExternalForm());
+        String iconPath = isDarkTheme ? "/ceiti/md/beneficiaryfx/icons/themeIcons/light_theme.png" : "/ceiti/md" +
+                "/beneficiaryfx/icons/themeIcons/dark_theme.png";
+        Image icon = new Image(getClass().getResource(iconPath)
+                                         .toExternalForm());
         ImageView imageView = new ImageView(icon);
         imageView.setFitHeight(16);
         imageView.setFitWidth(16);
@@ -184,8 +205,10 @@ public class MainController {
     private void applyStylesheet(URL cssFileURL) {
         Scene scene = themeButton.getScene();
         if (scene != null) {
-            scene.getStylesheets().clear();
-            scene.getStylesheets().add(cssFileURL.toExternalForm());
+            scene.getStylesheets()
+                 .clear();
+            scene.getStylesheets()
+                 .add(cssFileURL.toExternalForm());
         }
     }
 
@@ -193,10 +216,13 @@ public class MainController {
         if (filter.isEmpty()) {
             tableView.setItems(currentData);
         } else {
-            ObservableList<DisplayData> filteredList = currentData.filtered(data ->
-                    data.getNameBen().toLowerCase().contains(filter.toLowerCase())
-                            || data.getSurnameBen().toLowerCase().contains(filter.toLowerCase())
-                            || data.getLocalityName().toLowerCase().contains(filter.toLowerCase()));
+            ObservableList<DisplayData> filteredList = currentData.filtered(data -> data.getName()
+                                                                                        .toLowerCase()
+                                                                                        .contains(filter.toLowerCase()) || data.getSurname()
+                                                                                                                               .toLowerCase()
+                                                                                                                               .contains(filter.toLowerCase()) || data.getLocality()
+                                                                                                                                                                      .toLowerCase()
+                                                                                                                                                                      .contains(filter.toLowerCase()));
             tableView.setItems(filteredList);
         }
     }
@@ -228,33 +254,37 @@ public class MainController {
         DisplayData data = event.getRowValue();
         String newValue = event.getNewValue();
         switch (columnName) {
-            case "Name" -> data.setNameBen(newValue);
-            case "Surname" -> data.setSurnameBen(newValue);
-            case "Phone Number" -> data.setPhoneBen(newValue);
+            case "Name" -> data.setName(newValue);
+            case "Surname" -> data.setSurname(newValue);
+            case "Phone Number" -> data.setPhoneNumber(newValue);
             case "IDNP" -> data.setCodeBen(newValue);
-            case "Address" -> data.setAddressBen(newValue);
-            case "Email" -> data.setEmailBen(newValue);
+            case "Address" -> data.setAddress(newValue);
+            case "Email" -> data.setEmail(newValue);
         }
         model.updateDisplayData(data);
     }
 
     private void makeColumnsEditable() {
-        tableView.getColumns().forEach(column ->
-                column.setEditable(!column.getText().equals("BeneficiaryId")
-                        && !column.getText().equals("Environment")
-                        && !column.getText().equals("CardNumber")
-                        && !column.getText().equals("Locality")));
+        tableView.getColumns()
+                 .forEach(column -> column.setEditable(!column.getText()
+                                                              .equals("BeneficiaryId") && !column.getText()
+                                                                                                 .equals("Environment"
+                                                                                                 ) && !column.getText()
+                                                                                                                                  .equals("CardNumber") && !column.getText()
+                                                                                                                                                                  .equals("Locality")));
     }
 
     private void toggleColumnSorting(int columnIndex, MenuItem menuItem) {
-        TableColumn<DisplayData, ?> column = tableView.getColumns().get(columnIndex);
+        TableColumn<DisplayData, ?> column = tableView.getColumns()
+                                                      .get(columnIndex);
         boolean isSortable = !column.isSortable();
         column.setSortable(isSortable);
         menuItem.setText(addOrRemoveTick(menuItem.getText(), isSortable));
     }
 
     private void createTableColumns(String[] columnNames, String[] propertyNames) {
-        tableView.getColumns().clear();
+        tableView.getColumns()
+                 .clear();
         for (int i = 0; i < columnNames.length; i++) {
             TableColumn<DisplayData, String> column = new TableColumn<>(columnNames[i]);
             if (!columnNames[i].equals("Operations")) {
@@ -275,7 +305,8 @@ public class MainController {
             column.setStyle("-fx-alignment: CENTER;");
             column.setPrefWidth(columnNames[i].equals("Email") ? 180 : 129);
             if (columnNames[i].equals("Operations") || isAllDataDisplayed || isColumnRelevant(columnNames[i])) {
-                tableView.getColumns().add(column);
+                tableView.getColumns()
+                         .add(column);
             }
         }
     }
@@ -292,12 +323,13 @@ public class MainController {
     }
 
     private String[] getAllDataColumns() {
-        return new String[]{"BeneficiaryId", "Name", "Surname", "Phone Number", "IDNP", "Address", "Email", "Locality",
-                "Environment", "CardNumber", "Operations"};
+        return new String[]{"BeneficiaryId", "Name", "Surname", "Phone Number", "IDNP", "Address", "Email", "Locality"
+                , "Environment", "CardNumber", "Operations"};
     }
 
     private String[] getAllDataPropertyNames() {
-        return new String[]{"codeBen", "nameBen", "surnameBen", "phoneBen", "IDNP", "addressBen", "emailBen", "localityName", "environment", "cardNumber", "operations"};
+        return new String[]{"codeBen", "name", "surname", "phoneNumber", "idnp", "address", "email", "locality",
+                "environment", "cardNumber", "operations"};
     }
 
     private String[] getScepticDataColumns() {
@@ -305,6 +337,18 @@ public class MainController {
     }
 
     private String[] getScepticDataPropertyNames() {
-        return new String[]{"codeBen", "nameBen", "surnameBen", "phoneBen", "addressBen", "emailBen", "operations"};
+        return new String[]{"codeBen", "name", "surname", "phoneNumber", "address", "email", "operations"};
     }
+
+    private void adjustTableSize() {
+        double columnWidth = 135;
+        int columnCount = tableView.getColumns()
+                                   .size();
+
+        double newWidth = columnWidth * columnCount;
+        tableView.setPrefWidth(newWidth);
+        tableView.setMinWidth(newWidth);
+        tableView.setMaxWidth(newWidth);
+    }
+
 }

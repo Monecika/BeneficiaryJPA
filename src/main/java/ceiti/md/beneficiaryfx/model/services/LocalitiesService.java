@@ -48,6 +48,7 @@ public class LocalitiesService implements MyCrudRepository<Localities> {
     }
 
     public Localities getLocality(String localityName) {
-        return localitiesRepository.findByLocalityName(localityName).orElse(null);
+        return localitiesRepository.findByLocalityName(localityName)
+                                   .orElse(null);
     }
 }
