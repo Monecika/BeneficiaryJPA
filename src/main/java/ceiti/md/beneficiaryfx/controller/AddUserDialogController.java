@@ -1,6 +1,5 @@
 package ceiti.md.beneficiaryfx.controller;
 
-import ceiti.md.beneficiaryfx.model.entities.Cards;
 import ceiti.md.beneficiaryfx.model.entities.DisplayData;
 import ceiti.md.beneficiaryfx.model.entities.Environments;
 import ceiti.md.beneficiaryfx.model.entities.Localities;
@@ -19,7 +18,7 @@ public class AddUserDialogController {
     }
 
     public DisplayData showAddUserDialog(ObservableList<Localities> locality,
-                                         ObservableList<Environments> environment, ObservableList<Cards> card) {
+                                         ObservableList<Environments> environment) {
         Dialog<DisplayData> dialog = new Dialog<>();
         dialog.setTitle("Add User");
 
@@ -39,7 +38,6 @@ public class AddUserDialogController {
 
         ComboBox<String> environmentBox = new ComboBox<>();
         ComboBox<String> localityBox = new ComboBox<>();
-        ComboBox<String> cardBox = new ComboBox<>();
 
         environmentBox.getItems()
                       .addAll(environment.stream()
@@ -49,10 +47,6 @@ public class AddUserDialogController {
                    .addAll(locality.stream()
                                    .map(Localities::getLocalityName)
                                    .toList());
-        cardBox.getItems()
-               .addAll(card.stream()
-                           .map(Cards::getCardNr)
-                           .toList());
 
         grid.add(new Label("Name:"), 0, 0);
         grid.add(nameField, 1, 0);
@@ -70,8 +64,6 @@ public class AddUserDialogController {
         grid.add(environmentBox, 1, 6);
         grid.add(new Label("Locality:"), 0, 7);
         grid.add(localityBox, 1, 7);
-        grid.add(new Label("Card:"), 0, 8);
-        grid.add(cardBox, 1, 8);
 
         dialogPane.setContent(grid);
 
@@ -87,7 +79,7 @@ public class AddUserDialogController {
                 addButtonClicked = true;
                 return getTheData(nameField.getText(), surnameField.getText(), addressField.getText(),
                         phoneField.getText(), idnpField.getText(), emailField.getText(), localityBox.getValue(),
-                        environmentBox.getValue(), cardBox.getValue());
+                        environmentBox.getValue(), null);
             } else {
                 addButtonClicked = false;
                 return null;
@@ -98,6 +90,6 @@ public class AddUserDialogController {
 
         return addButtonClicked ? getTheData(nameField.getText(), surnameField.getText(), addressField.getText(),
                 phoneField.getText(), idnpField.getText(), emailField.getText(), localityBox.getValue(),
-                environmentBox.getValue(), cardBox.getValue()) : null;
+                environmentBox.getValue(), null) : null;
     }
 }

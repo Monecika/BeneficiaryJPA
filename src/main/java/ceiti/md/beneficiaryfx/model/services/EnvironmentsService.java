@@ -32,6 +32,10 @@ public class EnvironmentsService implements MyCrudRepository<Environments> {
         return environmentsRepository.findById(id);
     }
 
+    public Environments findByName(String name){
+        return environmentsRepository.findEnvironmentsByEnvironment(name);
+    }
+
     @Override
     public void save(Environments entity) {
         environmentsRepository.save(entity);
@@ -39,11 +43,12 @@ public class EnvironmentsService implements MyCrudRepository<Environments> {
 
     @Override
     public void update(Environments entity) {
-            environmentsRepository.save(entity);
+        environmentsRepository.save(entity);
     }
 
     @Override
     public void deleteById(Environments entity) {
-            environmentsRepository.delete(entity);
+        environmentsRepository.delete(entity);
     }
+
 }

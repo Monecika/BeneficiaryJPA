@@ -1,10 +1,7 @@
 package ceiti.md.beneficiaryfx.model.entities;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,4 +19,22 @@ public class Cards {
     private String cardNr;
     private String cardType;
     private Date dateExpire;
+
+    @OneToOne(mappedBy = "card")
+    private Beneficiaries beneficiary;
+
+    public Cards(String cardNr, String cardType, Date daexpire, Beneficiaries beneficiary) {
+        this.cardNr = cardNr;
+        this.cardType = cardType;
+        this.dateExpire = daexpire;
+        this.beneficiary = beneficiary;
+    }
+
+    @Override
+    public String toString() {
+        return "Cards{" + "ID=" + ID + ", cardNr='" + cardNr + '\'' + ", cardType='" + cardType + '\'' + ", " +
+                "dateExpire=" + dateExpire + ", beneficiary=" + (beneficiary != null ? beneficiary.getCodeBen() :
+                "null") + '}';
+    }
+
 }

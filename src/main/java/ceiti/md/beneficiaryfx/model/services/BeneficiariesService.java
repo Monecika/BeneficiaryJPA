@@ -14,8 +14,12 @@ import java.util.Optional;
 @Service
 public class BeneficiariesService implements MyCrudRepository<Beneficiaries> {
 
+    private final BeneficiariesRepository beneficiariesRepository;
+
     @Autowired
-    private BeneficiariesRepository beneficiariesRepository;
+    public BeneficiariesService(BeneficiariesRepository beneficiariesRepository) {
+        this.beneficiariesRepository = beneficiariesRepository;
+    }
 
     @Override
     public ObservableList<Beneficiaries> findAll() {
@@ -48,7 +52,7 @@ public class BeneficiariesService implements MyCrudRepository<Beneficiaries> {
                                       .orElse(null);
     }
 
-    public void deleteByNrBen(String code){
+    public void deleteByNrBen(String code) {
         beneficiariesRepository.deleteByCodeBen(code);
     }
 }

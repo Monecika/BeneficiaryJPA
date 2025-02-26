@@ -16,61 +16,53 @@ public class Beneficiaries {
 
     @Column(name = "nrben")
     private String codeBen;
+
     @Column(name = "name")
     private String nameBen;
+
     @Column(name = "surname")
     private String surnameBen;
+
     @Column(name = "phone")
     private String phoneBen;
+
     @Column(name = "idnp")
     private String IDNP;
+
     @Column(name = "address")
     private String addressBen;
+
     @Column(name = "email")
     private String emailBen;
-    @Column(name = "localityid")
-    private int localityID;
-    @Column(name = "environment")
+
+    @ManyToOne
+    @JoinColumn(name = "localityid", referencedColumnName = "ID")
+    private Localities locality;
+
     private String environment;
-    @Column(name = "cardid")
-    private int cardID;
 
-    public Beneficiaries(String codeBen, String nameBen, String surnameBen, String phoneBen, String IDNP,
-                         String addressBen, String emailBen, String environment) {
-        this.codeBen = codeBen;
-        this.nameBen = nameBen;
-        this.surnameBen = surnameBen;
-        this.phoneBen = phoneBen;
-        this.IDNP = IDNP;
-        this.addressBen = addressBen;
-        this.emailBen = emailBen;
-        this.environment = environment;
-    }
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cardid", referencedColumnName = "id")
+    private Cards card;
 
-    public Beneficiaries(int ID, String codeBen, String nameBen, String surnameBen, String phoneBen,
-                         String addressBen, String emailBen) {
-        this.ID = ID;
+    public Beneficiaries(String codeBen, String name, String surname, String phoneNumber, String idnp, String address
+            , String email, Localities locality, String environment, Cards card) {
         this.codeBen = codeBen;
-        this.nameBen = nameBen;
-        this.surnameBen = surnameBen;
-        this.phoneBen = phoneBen;
-        this.addressBen = addressBen;
-        this.emailBen = emailBen;
-    }
-
-    public Beneficiaries(String codeBen, String nameBen, String surnameBen, String phoneBen, String idnp,
-                         String addressBen, String emailBen, int localityID, String environment, int cardID) {
-        this.codeBen = codeBen;
-        this.nameBen = nameBen;
-        this.surnameBen = surnameBen;
-        this.phoneBen = phoneBen;
+        this.nameBen = name;
+        this.surnameBen = surname;
+        this.phoneBen = phoneNumber;
         this.IDNP = idnp;
-        this.addressBen = addressBen;
-        this.emailBen = emailBen;
-        this.localityID = localityID;
+        this.addressBen = address;
+        this.emailBen = email;
+        this.locality = locality;
         this.environment = environment;
-        this.cardID = cardID;
+        this.card = card;
+    }
+
+    @Override
+    public String toString() {
+        return "Beneficiaries{" + "ID=" + ID + ", codeBen='" + codeBen + '\'' + ", nameBen='" + nameBen + '\'' + ", " +
+                "surnameBen='" + surnameBen + '\'' + ", phoneBen='" + phoneBen + '\'' + ", IDNP='" + IDNP + '\'' + "," +
+                " addressBen='" + addressBen + '\'' + ", emailBen='" + emailBen + '\'' + ", locality=" + locality.getLocalityName() + ", environment='" + environment + '\'' + ", card=" + card.getCardNr() + '}';
     }
 }
-
-

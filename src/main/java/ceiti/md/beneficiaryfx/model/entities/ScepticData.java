@@ -1,8 +1,17 @@
 package ceiti.md.beneficiaryfx.model.entities;
 
-public class ScepticData extends Beneficiaries {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-    public ScepticData(int ID, String codeBen, String nameBen, String surnameBen, String phoneBen, String addressBen, String emailBen) {
-        super(ID, codeBen, nameBen, surnameBen, phoneBen, addressBen, emailBen);
-    }
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class ScepticData {
+    private String codeBen;
+    private String name;
+    private String surname;
+    private String phoneNumber;
+    private String address;
+    private String email;
 }
