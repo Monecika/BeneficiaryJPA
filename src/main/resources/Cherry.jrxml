@@ -11,62 +11,27 @@
 			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
 		</conditionalStyle>
 	</style>
-	<query language="SQL"><![CDATA[SELECT *
-FROM beneficiaries]]></query>
 	<field name="id" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="id"/>
-		<property name="com.jaspersoft.studio.field.label" value="id"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="beneficiaries"/>
 	</field>
 	<field name="nrben" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="nrben"/>
-		<property name="com.jaspersoft.studio.field.label" value="nrben"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="beneficiaries"/>
 	</field>
 	<field name="name" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="name"/>
-		<property name="com.jaspersoft.studio.field.label" value="name"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="beneficiaries"/>
 	</field>
 	<field name="surname" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="surname"/>
-		<property name="com.jaspersoft.studio.field.label" value="surname"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="beneficiaries"/>
 	</field>
 	<field name="phone" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="phone"/>
-		<property name="com.jaspersoft.studio.field.label" value="phone"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="beneficiaries"/>
 	</field>
 	<field name="idnp" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="idnp"/>
-		<property name="com.jaspersoft.studio.field.label" value="idnp"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="beneficiaries"/>
 	</field>
 	<field name="address" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="address"/>
-		<property name="com.jaspersoft.studio.field.label" value="address"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="beneficiaries"/>
 	</field>
 	<field name="email" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="email"/>
-		<property name="com.jaspersoft.studio.field.label" value="email"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="beneficiaries"/>
 	</field>
 	<field name="localityid" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="localityid"/>
-		<property name="com.jaspersoft.studio.field.label" value="localityid"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="beneficiaries"/>
 	</field>
 	<field name="environment" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="environment"/>
-		<property name="com.jaspersoft.studio.field.label" value="environment"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="beneficiaries"/>
 	</field>
 	<field name="cardid" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="cardid"/>
-		<property name="com.jaspersoft.studio.field.label" value="cardid"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="beneficiaries"/>
 	</field>
 	<background splitType="Stretch"/>
 	<title height="132" splitType="Stretch">

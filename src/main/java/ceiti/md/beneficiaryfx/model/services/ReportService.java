@@ -1,74 +1,56 @@
 package ceiti.md.beneficiaryfx.model.services;
 
 import ceiti.md.beneficiaryfx.model.entities.Beneficiaries;
+import ceiti.md.beneficiaryfx.model.entities.DisplayData;
 import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.export.SimpleExporterInput;
-import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
-import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
-import net.sf.jasperreports.export.SimplePdfReportConfiguration;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 
-import javax.sql.DataSource;
-import java.io.InputStream;
-import java.sql.SQLException;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class ReportService {
-    private final DataSource dataSource;
+    private final DisplayDataService displayDataService;
 
     @Autowired
-    public ReportService(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public ReportService(DisplayDataService displayDataService) {
+        this.displayDataService = displayDataService;
     }
 
-    public String generateBeneficiaryReport(List<Beneficiaries> beneficiaries) {
 
-        // Load JRXML file from resources
-        InputStream employeeReportStream = getClass().getResourceAsStream("/Cherry.jrxml");
-        if (employeeReportStream == null) {
-            throw new RuntimeException("Report template not found.");
-        }
+    public String exportReport(String reportFormat) {
+        String path = "src/main/resources/jasperReportsOfBen";
+        List<DisplayData> displayDataList = displayDataService.findAll();
 
+        File file = null;
         try {
-            // Compile the report
-            JasperReport jasperReport = JasperCompileManager.compileReport(employeeReportStream);
+            file = ResourceUtils.getFile("classpath:Simple_Blue.jrxml");
+            JasperReport jr = JasperCompileManager.compileReport(file.getAbsolutePath());
 
-            // Parameters for the report (add your parameters here if needed)
-            Map<String, Object> parameters = new HashMap<>();
-            parameters.put("BeneficiariesList", beneficiaries);
+            JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(displayDataList);
+            Map<String, Object> hm = new HashMap<>();
+            hm.put("Created By", "Learn code with me");
 
-            // Fill the report with data
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,
-                    dataSource.getConnection());
+            JasperPrint jp = JasperFillManager.fillReport(jr,hm,ds);
 
-            // Export the report to PDF
-            JRPdfExporter exporter = new JRPdfExporter();
-            exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
-            exporter.setExporterOutput(new SimpleOutputStreamExporterOutput("employeeReport.pdf"));
-
-            SimplePdfReportConfiguration reportConfig = new SimplePdfReportConfiguration();
-            reportConfig.setSizePageToContent(true);
-            reportConfig.setForceLineBreakPolicy(false);
-
-            SimplePdfExporterConfiguration exportConfig = new SimplePdfExporterConfiguration();
-            exportConfig.setMetadataAuthor("baeldung");
-            exportConfig.setEncrypted(true);
-            exportConfig.setAllowedPermissionsHint("PRINTING");
-
-            exporter.setConfiguration(reportConfig);
-            exporter.setConfiguration(exportConfig);
-
-            // Execute the export
-            exporter.exportReport();
-
-            return "employeeReport.pdf"; // Return the report file name
-        } catch (JRException | SQLException e) {
-            throw new RuntimeException("Error generating report", e);
+            if(reportFormat.equalsIgnoreCase("html")){
+                JasperExportManager.exportReportToHtmlFile(jp,path+"\\beneficiaries.html");
+            }
+            if(reportFormat.equalsIgnoreCase("pdf")){
+                JasperExportManager.exportReportToPdfFile(jp,path+"\\beneficiaries.pdf");
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (JRException e) {
+            throw new RuntimeException(e);
         }
+
+        return "File created at path: " + path;
     }
 }
