@@ -17,6 +17,8 @@ module ceiti.md.beneficiaryfx {
     requires itextpdf;
     requires org.apache.poi.poi;
     requires org.apache.poi.ooxml;
+    requires jasperreports;
+
 
     opens ceiti.md.beneficiaryfx to javafx.fxml, spring.core;
     opens ceiti.md.beneficiaryfx.controller to javafx.fxml, spring.core, spring.beans;
