@@ -2,6 +2,7 @@ package ceiti.md.beneficiaryfx.controller;
 
 import ceiti.md.beneficiaryfx.model.MainModel;
 import ceiti.md.beneficiaryfx.model.entities.DisplayData;
+import ceiti.md.beneficiaryfx.model.services.ReportService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,12 +15,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.FileChooser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.net.URL;
-import java.util.stream.Collectors;
 
 @Controller
 public class MainController {
@@ -29,8 +28,8 @@ public class MainController {
     private final int surnameColumnIndex = 2;
     private final int localityColumnIndex = 7;
     private final boolean isAllDataDisplayed = true;
-    @Autowired
-    private MainModel model;
+    private final MainModel model;
+    private final ReportService reportService;
     @FXML
     private TableView<DisplayData> tableView;
     @FXML
@@ -52,6 +51,12 @@ public class MainController {
     private boolean isSearchToggled = false;
     private boolean isDarkTheme = false;
     private boolean isTableEditable = false;
+
+    @Autowired
+    public MainController(MainModel model, ReportService reportService) {
+        this.model = model;
+        this.reportService = reportService;
+    }
 
     @FXML
     public void initialize() {
@@ -164,17 +169,18 @@ public class MainController {
 
     @FXML
     private void exportUsersButtonAction() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters()
-                   .addAll(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"), new FileChooser.ExtensionFilter(
-                           "Excel Files", "*.xlsx"));
-        fileChooser.setInitialDirectory(new java.io.File(System.getProperty("user.home")));
-        java.io.File selectedFile = fileChooser.showSaveDialog(themeButton.getScene()
-                                                                          .getWindow());
-        if (selectedFile != null) {
-            String filePath = selectedFile.getAbsolutePath();
-            exportHandler.handleExportRequest(tableView, filePath);
-        }
+//        FileChooser fileChooser = new FileChooser();
+//        fileChooser.getExtensionFilters()
+//                   .addAll(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"), new FileChooser.ExtensionFilter(
+//                           "Excel Files", "*.xlsx"));
+//        fileChooser.setInitialDirectory(new java.io.File(System.getProperty("user.home")));
+//        java.io.File selectedFile = fileChooser.showSaveDialog(themeButton.getScene()
+//                                                                          .getWindow());
+//        if (selectedFile != null) {
+//            String filePath = selectedFile.getAbsolutePath();
+//            exportHandler.handleExportRequest(tableView, filePath);
+//        }
+        reportService.exportReport("pdf");
     }
 
     private void changeTheme() {

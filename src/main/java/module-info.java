@@ -28,6 +28,7 @@ module ceiti.md.beneficiaryfx {
     opens ceiti.md.beneficiaryfx.model.services to spring.core, spring.beans;
 
     exports ceiti.md.beneficiaryfx.model to spring.beans;
+    exports ceiti.md.beneficiaryfx.model.entities;
 
     exports ceiti.md.beneficiaryfx;
 }

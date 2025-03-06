@@ -1,0 +1,93 @@
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="BeneficiariesReport" pageWidth="595" pageHeight="842"
+              columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+
+    <field name="codeBen" class="java.lang.String"/>
+    <field name="name" class="java.lang.String"/>
+    <field name="surname" class="java.lang.String"/>
+    <field name="phoneNumber" class="java.lang.String"/>
+    <field name="idnp" class="java.lang.String"/>
+    <field name="address" class="java.lang.String"/>
+    <field name="email" class="java.lang.String"/>
+    <field name="locality" class="java.lang.String"/>
+    <field name="environment" class="java.lang.String"/>
+    <field name="cardNumber" class="java.lang.String"/>
+
+    <title>
+        <band height="50">
+            <textField>
+                <reportElement x="0" y="0" width="555" height="30"/>
+                <textFieldExpression><![CDATA["Beneficiaries Report"]]></textFieldExpression>
+            </textField>
+        </band>
+    </title>
+
+    <pageHeader>
+        <band height="40">
+            <textField>
+                <reportElement x="0" y="0" width="60" height="30"/>
+                <textFieldExpression><![CDATA["Code"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="70" y="0" width="60" height="30"/>
+                <textFieldExpression><![CDATA["Name"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="130" y="0" width="60" height="30"/>
+                <textFieldExpression><![CDATA["Surname"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="190" y="0" width="80" height="30"/>
+                <textFieldExpression><![CDATA["Phone"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="270" y="0" width="140" height="30"/>
+                <textFieldExpression><![CDATA["Email"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="410" y="0" width="60" height="30"/>
+                <textFieldExpression><![CDATA["Locality"]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageHeader>
+
+    <detail>
+        <band height="40">
+            <textField>
+                <reportElement x="0" y="0" width="60" height="30"/>
+                <textFieldExpression><![CDATA[$F{codeBen}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="60" y="0" width="60" height="30"/>
+                <textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="120" y="0" width="60" height="30"/>
+                <textFieldExpression><![CDATA[$F{surname}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="180" y="0" width="80" height="30"/>
+                <textFieldExpression><![CDATA[$F{phoneNumber}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="260" y="0" width="140" height="30"/>
+                <textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="400" y="0" width="60" height="30"/>
+                <textFieldExpression><![CDATA[$F{locality}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+
+    <summary>
+        <band height="30">
+            <textField>
+                <reportElement x="0" y="0" width="555" height="30"/>
+                <textFieldExpression><![CDATA["End of Report"]]></textFieldExpression>
+            </textField>
+        </band>
+    </summary>
+</jasperReport>
